@@ -18,3 +18,10 @@ What my employers have said is that they want "Java superheroes".
 That's not what I am.
 I'm just competent.
 That being said, I want to do a good job, so I'm going to come up with a plan to improve my knowledge of Java.
+I believe that there are about five main exercises one should go through to achieve this:
+
+#. Write short programming challenges
+#. Contribute to a larger project
+#. Read about the language
+#. Write about the language
+#. Pass the occasional pop quiz
