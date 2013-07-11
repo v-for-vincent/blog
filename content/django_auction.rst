@@ -52,3 +52,28 @@ software for the job and it's used in industry, so I'd like to figure out
 how to apply that to Django.
 
 A well-known CI tool is `Jenkins <http://jenkins-ci.org/>`_.
+I'll be using that. Specifically, I'll be using django-jenkins and
+I'll be basing my experiments here on
+`this tutorial <https://sites.google.com/site/kmmbvnr/home/django-jenkins-tutorial>`_.
+
+Before I explain how I'd like things to be tested, a bit of explanation may be
+in order: Django distinguishes between "projects" and "apps", the former being
+composed of the latter. Projects are just web applications in the general
+sense. Apps are smaller components, like a forum, a store, etc.
+The reason for the distinction is reusability.
+Well-designed apps are reusable.
+You could use the same forum app on multiple web sites, for instance.
+This implies that apps are written in a loosely coupled manner.
+They can have their own templates (which render to HTML) but these should
+be minimal.
+
+With that in mind, I'd like Jenkins to run tests for both the project we'll
+be building and for the app we'll be writing and including in the project.
+I'd also like to make a distinction between functional tests and unit tests,
+like in `Obey the Testing Goat! <http://www.obeythetestinggoat.com/>`_.
+Functional tests will usually be more expensive, because they test larger
+chunks of functionality.
+It'd be cool if I could run unit tests on each code change and functional
+tests on each commit, but I can live with another setup.
+
+Let's dig in.

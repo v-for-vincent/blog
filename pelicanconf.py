@@ -3,10 +3,9 @@
 
 AUTHOR = u'Vincent Nys'
 SITENAME = u'V for Vincent'
-SITEURL = u'vincentnys.ulyssis.be'
 TIMEZONE = 'Europe/Paris'
 DEFAULT_LANG = u'en'
-FEED_DOMAIN = SITEURL
+#FEED_DOMAIN = SITEURL
 FEED_MAX_ITEMS = 10
 PATH=u'content'
 SITESUBTITLE=u'Thoughts on programming, music, language and life in general.'
