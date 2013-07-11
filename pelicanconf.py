@@ -9,6 +9,7 @@ DEFAULT_LANG = u'en'
 FEED_DOMAIN = SITEURL
 FEED_MAX_ITEMS = 10
 PATH=u'content'
+SITESUBTITLE=u'Thoughts on programming, music, language and life in general.'
 
 # Blogroll
 # LINKS =  (('Pelican', 'http://docs.notmyidea.org/alexis/pelican/'),)

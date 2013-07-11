@@ -6,6 +6,7 @@ Becoming the Java superhero
 :category: Java
 :slug: java-superhero
 :author: Vincent Nys
+:status: draft
 :summary: What is asked of me at my new job and how I intend to do it.
 
 Intro
