@@ -77,3 +77,21 @@ It'd be cool if I could run unit tests on each code change and functional
 tests on each commit, but I can live with another setup.
 
 Let's dig in.
+
+Running `jenkins-cli help`, I get the message that the
+JENKINS_URL variable isn't set.
+Nonetheless, localhost:8080 shows something similar to the screen shown
+in the django-jenkins tutorial, so let's keep on truckin'.
+The interface is a bit sluggish, but I'm writing this on a three-year-old
+netbook/laptop hybrid, so hopefully CI will be smooth on a more powerful
+machine. Anyway, here's what the initial screen looks like for me:
+
+.. todo::
+   screenshot 1
+
+Installing the "Violations" and "Cobertura" plugins is as easy as checking
+under the "Available" tab of the plugin management page.
+
+I create a new free form job and I call it "django-jenkins-yardsale".
+Up until the "specify the location of test reports" part, I just follow
+the tutorial verbatim.
