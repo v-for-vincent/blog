@@ -24,4 +24,33 @@ I believe that there are about five main exercises one should go through to achi
 #. Contribute to a larger project
 #. Read about the language
 #. Write about the language
-#. Pass the occasional pop quiz
+#. Pass the occasional quiz
+
+Below, I'll give my roadmap for each of these bullets.
+As I get through each, I'll tell you which steps yield the best value.
+
+Read about the language
+-----------------------
+
+I read a lot of interesting stuff about Python through Python Weekly
+and Pycoder's weekly.
+I couldn't find the exact same format for Java, but I did manage to
+find "Java Code Geeks" through Feedly.
+
+In addition, I've got Josh Bloch's "Effective Java" on hand.
+That's basically the quintessential Java reference, so I'll
+work my way through it again.
+I already read most of it a few years back, but that was before
+I switched to Python. I could do with a refresher.
+
+It's also worth noting that the Pragmatic Programmers have some books
+on interesting, very specific Java topics: concurrency on the JVM,
+functional programming in Java 8, etc.
+
+I'll also need to work with Java EE and XML.
+Turns out O'Reilly is planned to release a book on Java EE 7 next month:
+"Java EE 7 Essentials".
+Their stuff is usually pretty good, so I'll use that as a reference.
+
+As for XML, I'm not sure yet.
+Maybe the book on EE will cover enough of what I need.
