@@ -6,4 +6,6 @@ output
 
 *.pid
 *.pyc
+*.swo
 *.swp
+*.swn
