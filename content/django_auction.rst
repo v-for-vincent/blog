@@ -77,14 +77,17 @@ It'd be cool if I could run unit tests on each code change and functional
 tests on each commit, but I can live with another setup.
 
 Let's dig in.
+On my laptop, I managed to get Jenkins up and running... somehow.
+Now, I can't get it to start anymore.
+On my desktop, installing it was enough to make it available at
+localhost:8080 after reboot.
+Restarting the service without rebooting didn't help.
+Long story short, you may need to do some tinkering and even then your
+mileage may vary.
+I may look into this further in posts focusing on Java, but now I'd just
+like to proceed with the Django content.
 
-Running `jenkins-cli help`, I get the message that the
-JENKINS_URL variable isn't set.
-Nonetheless, localhost:8080 shows something similar to the screen shown
-in the django-jenkins tutorial, so let's keep on truckin'.
-The interface is a bit sluggish, but I'm writing this on a three-year-old
-netbook/laptop hybrid, so hopefully CI will be smooth on a more powerful
-machine. Anyway, here's what the initial screen looks like for me:
+Anyway, here's what the initial screen looks like for me:
 
 .. todo::
    screenshot 1
@@ -95,3 +98,6 @@ under the "Available" tab of the plugin management page.
 I create a new free form job and I call it "django-jenkins-yardsale".
 Up until the "specify the location of test reports" part, I just follow
 the tutorial verbatim.
+I'm a bit surprised there's no box asking me for the directory from which
+the command will be run.
+I'll probably have to retrace my steps and set that somewhere a bit later on.
