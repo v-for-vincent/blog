@@ -92,8 +92,18 @@ Anyway, here's what the initial screen looks like for me:
 .. todo::
    screenshot 1
 
-Installing the "Violations" and "Cobertura" plugins is as easy as checking
-under the "Available" tab of the plugin management page.
+Installing the "Violations" and "Cobertura" plugins may not be as easy
+as just checking the plugins under the "Available" tab. In my case,
+they did not show up. A quick google search explains that plugins for
+more recent versions of Jenkins may not show up.
+Therefore, I grab the latest .war for Jenkins and replace that in
+/usr/share/jenkins.
+You can get the .war simply by trying to update Jenkins from the
+management page.
+Or, if you're running it in the generic way, with the "java" command,
+that'll do the whole update for you.
+Sure enough, after a reboot, everything looks good again, and plugins
+are visible.
 
 I create a new free form job and I call it "django-jenkins-yardsale".
 Up until the "specify the location of test reports" part, I just follow
@@ -101,3 +111,19 @@ the tutorial verbatim.
 I'm a bit surprised there's no box asking me for the directory from which
 the command will be run.
 I'll probably have to retrace my steps and set that somewhere a bit later on.
+
+I follow the setup in the tutorial, but to run the tests, I specify these
+build steps:
+
+   cd /home/vincent/Projects/YardSaleEnv
+   source bin/activate
+   pip install -r requirements.pip
+   python manage.py jenkins
+
+Then, the tutorial mentions setting the location of test reports, but it also
+says that "test reports from TEST-*.xml now stored in one file - junit.xml" in
+recent versions of Jenkins. I'm not sure what to make of that.
+I'm not using Lettuce, so if the only other reports already have a location,
+I take it that I don't have to specify any location at all.
+
+
