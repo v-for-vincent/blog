@@ -52,9 +52,8 @@ software for the job and it's used in industry, so I'd like to figure out
 how to apply that to Django.
 
 A well-known CI tool is `Jenkins <http://jenkins-ci.org/>`_.
-I'll be using that. Specifically, I'll be using django-jenkins and
-I'll be basing my experiments here on
-`this tutorial <https://sites.google.com/site/kmmbvnr/home/django-jenkins-tutorial>`_.
+I'll be using that.
+Specifically, I'll be using django-jenkins.
 
 Before I explain how I'd like things to be tested, a bit of explanation may be
 in order: Django distinguishes between "projects" and "apps", the former being
@@ -77,33 +76,27 @@ It'd be cool if I could run unit tests on each code change and functional
 tests on each commit, but I can live with another setup.
 
 Let's dig in.
-On my laptop, I managed to get Jenkins up and running... somehow.
-Now, I can't get it to start anymore.
 On my desktop, installing it was enough to make it available at
 localhost:8080 after reboot.
-Restarting the service without rebooting didn't help.
-Long story short, you may need to do some tinkering and even then your
-mileage may vary.
-I may look into this further in posts focusing on Java, but now I'd just
-like to proceed with the Django content.
+I ran into a few snags on my laptop because it's already gone through quite
+a few Ubuntu upgrades and Java re/de/re-re-installs.
+I used apt-get, but frankly, getting it from the site and running the .jar
+might be the easiest thing to do.
 
 Anyway, here's what the initial screen looks like for me:
 
 .. todo::
    screenshot 1
 
-Installing the "Violations" and "Cobertura" plugins may not be as easy
-as just checking the plugins under the "Available" tab. In my case,
-they did not show up. A quick google search explains that plugins for
-more recent versions of Jenkins may not show up.
-Therefore, I grab the latest .war for Jenkins and replace that in
-/usr/share/jenkins.
-You can get the .war simply by trying to update Jenkins from the
-management page.
-Or, if you're running it in the generic way, with the "java" command,
-that'll do the whole update for you.
-Sure enough, after a reboot, everything looks good again, and plugins
-are visible.
+Here's the main idea.
+First, Jenkins starts by monitoring a repository for changes via polling.
+It checks out what's in the repository, executes some commands
+(like a build script) and gives output.
+The workflow is simple enough, but a plethora of plugins makes Jenkins a
+very flexible system.
+Also note that, because it checks out the code from the specified repository,
+you can't afford half-baked version control.
+Kind of a plus, if you ask me.
 
 I create a new free form job and I call it "django-jenkins-yardsale".
 Up until the "specify the location of test reports" part, I just follow
@@ -126,4 +119,8 @@ recent versions of Jenkins. I'm not sure what to make of that.
 I'm not using Lettuce, so if the only other reports already have a location,
 I take it that I don't have to specify any location at all.
 
+References
+----------
 
+#. `Continuous Integration with Jenkings by Lars Vogel <http://www.vogella.com/articles/Jenkins/article.html>`_.
+#. `django-jenkins Tutorial by kmmbvnr <https://sites.google.com/site/kmmbvnr/home/django-jenkins-tutorial>`_.
