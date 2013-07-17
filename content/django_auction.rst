@@ -98,26 +98,91 @@ Also note that, because it checks out the code from the specified repository,
 you can't afford half-baked version control.
 Kind of a plus, if you ask me.
 
-I create a new free form job and I call it "django-jenkins-yardsale".
+By the way, you can also set Jenkins to build based on another trigger than a
+time-based one.
+For instance, when you visit a particular URL. 
+You could set up a post-commit hook to do that automatically.
+
+To get Jenkins to work with Git, you need to go the Jenkins administration
+page for plugins.
+Under available, you'll find the "Git plugin".
+Just check it and choose to install.
+The main django-jenkins tutorial also uses the "Violations" and "Cobertura"
+plugins, so you should install those, as well.
+The former can check for style violations using such tools as pep8 and pylint.
+The latter checks for code coverage.
+
+Once that's done, I create a new free form job and I name it
+"django-jenkins-yardsale".
 Up until the "specify the location of test reports" part, I just follow
 the tutorial verbatim.
-I'm a bit surprised there's no box asking me for the directory from which
-the command will be run.
-I'll probably have to retrace my steps and set that somewhere a bit later on.
+Originally, I was a bit surprised there's no box asking me for the directory
+from which the command will be run.
+Again, Jenkins actually checks out your code and goes through the entire build
+process.
+It uses a workspace of its own to do this.
+
+.. todo:: Cobertura and violations
 
 I follow the setup in the tutorial, but to run the tests, I specify these
 build steps:
 
-   cd /home/vincent/Projects/YardSaleEnv
-   source bin/activate
-   pip install -r requirements.pip
-   python manage.py jenkins
+   virtualenv my_env
+   my_env/bin/pip install -r requirements.txt
+   my_env/bin/python src/yardsale/manage.py jenkins
 
-Then, the tutorial mentions setting the location of test reports, but it also
-says that "test reports from TEST-*.xml now stored in one file - junit.xml" in
-recent versions of Jenkins. I'm not sure what to make of that.
-I'm not using Lettuce, so if the only other reports already have a location,
-I take it that I don't have to specify any location at all.
+Just a word of explanation.
+The first command creates a virtualenv in your workspace.
+The second command installs the dependencies of your environment.
+I'm assuming you define these in the root of your repository.
+To generate a requirements file, follow the simple instructions found
+`here <http://www.pip-installer.org/en/latest/requirements.html>`_.
+Look for "pip freeze".
+The final command is made available by the django-jenkins package.
+The path is due to my own approach to project structures:
+I have a "Projects" folder on my hard drive.
+Within that folder, I've got a bunch of virtualenvs.
+In this case, "YardSaleEnv".
+I make that the root of my repository.
+Within those virtualenvs, you've got your "bin", "lib", "local"
+folders and some other stuff.
+Anything that is created by virtualenv, I add to the root .gitignore file.
+I add a "src" folder in the root folder and put stuff that is not just part of
+the environment in there.
+
+For easy reference, here's my requirements file:
+
+   Django==1.5.1
+   argparse==1.2.1
+   coverage==3.6
+   distribute==0.6.24
+   django-dajax==0.9.2
+   django-dajaxice==0.5.5
+   django-jenkins==0.14.0
+   django-social-auth==0.7.23
+   httplib2==0.8
+   logilab-astng==0.24.3
+   logilab-common==0.59.1
+   oauth2==1.5.211
+   pep8==1.4.6
+   pylint==0.28.0
+   python-openid==2.2.5
+   selenium==2.33.0
+   wsgiref==0.1.2
+
+You can copy-paste that into a requirements file to quickly replicate my
+environment. Just use the "pip install -r" command shown above.
+
+Once that's out of the way, start a django project called "yardsale".
+See the "startproject" command at
+`The Django Book <http://www.djangobook.com/en/2.0/chapter02.html>`_.
+
+Little Extra
+------------
+
+If you're using Gnome Shell, there's a nice plugin called
+`Jenkins CI Server Indicator <https://extensions.gnome.org/extension/399/jenkins-ci-server-indicator/>`_.
+I'm a sucker for these things.
 
 References
 ----------
