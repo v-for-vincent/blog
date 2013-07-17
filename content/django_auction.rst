@@ -1,13 +1,13 @@
-Writing an AJAX-powered auction in Django
-#########################################
+AJAX-powered auction in Django - Part 1: Jenkins
+################################################
 
-:date: 2013-07-11
+:date: 2013-07-17
 :tags: Django
 :category: Python
 :slug: auction-in-django
 :author: Vincent Nys
 :status: draft
-:summary: A complete rundown of my recent Github project.
+:summary: A rundown of how to set up Jenkins for the auction.
 
 Intro
 -----
@@ -82,21 +82,18 @@ I ran into a few snags on my laptop because it's already gone through quite
 a few Ubuntu upgrades and Java re/de/re-re-installs.
 I used apt-get, but frankly, getting it from the site and running the .jar
 might be the easiest thing to do.
+If you see a Jenkins administration interface at localhost:8080, you're good
+to go.
 
-Anyway, here's what the initial screen looks like for me:
-
-.. todo::
-   screenshot 1
-
-Here's the main idea.
+Here's the main idea behind Jenkins.
 First, Jenkins starts by monitoring a repository for changes via polling.
 It checks out what's in the repository, executes some commands
 (like a build script) and gives output.
 The workflow is simple enough, but a plethora of plugins makes Jenkins a
 very flexible system.
 Also note that, because it checks out the code from the specified repository,
-you can't afford half-baked version control.
-Kind of a plus, if you ask me.
+you can't afford half-baked version control. You need a working
+requirements file, for one. Kind of a plus, really.
 
 By the way, you can also set Jenkins to build based on another trigger than a
 time-based one.
@@ -114,8 +111,10 @@ The latter checks for code coverage.
 
 Once that's done, I create a new free form job and I name it
 "django-jenkins-yardsale".
-Up until the "specify the location of test reports" part, I just follow
-the tutorial verbatim.
+Note that your Git repo can be local.
+In my case, Jenkins is happy when I supply
+/home/vincent/Projects/YardSaleEnv/.git.
+
 Originally, I was a bit surprised there's no box asking me for the directory
 from which the command will be run.
 Again, Jenkins actually checks out your code and goes through the entire build
@@ -124,8 +123,16 @@ It uses a workspace of its own to do this.
 
 .. todo:: Cobertura and violations
 
-I follow the setup in the tutorial, but to run the tests, I specify these
-build steps:
+To determine when the project gets built, check "poll SCM" and fill in:
+
+   * /5 * * * *
+
+Note that there should not be a space after the first asterisk.
+I had to enter one because Vim's .rst syntax highlighting doesn't play
+nicely with it.
+
+To run the tests, I specify these
+build steps (as "shell script"):
 
    virtualenv my_env
    my_env/bin/pip install -r requirements.txt
@@ -138,7 +145,8 @@ I'm assuming you define these in the root of your repository.
 To generate a requirements file, follow the simple instructions found
 `here <http://www.pip-installer.org/en/latest/requirements.html>`_.
 Look for "pip freeze".
-The final command is made available by the django-jenkins package.
+The final command is made available by the django-jenkins package,
+which we'll set up shortly.
 The path is due to my own approach to project structures:
 I have a "Projects" folder on my hard drive.
 Within that folder, I've got a bunch of virtualenvs.
@@ -173,9 +181,23 @@ For easy reference, here's my requirements file:
 You can copy-paste that into a requirements file to quickly replicate my
 environment. Just use the "pip install -r" command shown above.
 
+Now, Jenkins won't be able to work with Git until you configure it.
+First, find your Jenkins home folder.
+Chances are that's ~/.jenkins or /var/lib/jenkins.
+Then, go to jobs/django-jenkins-yardsale/workspace.
+Enter the following commands::
+
+   sudo git config user.name "jenkins"
+   sudo git config user.email "test@gmail.com" 
+
 Once that's out of the way, start a django project called "yardsale".
 See the "startproject" command at
 `The Django Book <http://www.djangobook.com/en/2.0/chapter02.html>`_.
+Use the same layout I described earlier.
+So that's `django-admin.py startproject yardsale` from within the "src"
+folder.
+
+.. todo:: enable django-jenkins app
 
 Little Extra
 ------------
