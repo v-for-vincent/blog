@@ -3,7 +3,7 @@ PELICANOPTS=
 
 BASEDIR=$(CURDIR)
 INPUTDIR=$(BASEDIR)/content
-OUTPUTDIR=$(BASEDIR)/output
+OUTPUTDIR=$(BASEDIR)/www
 CONFFILE=$(BASEDIR)/pelicanconf.py
 PUBLISHCONF=$(BASEDIR)/publishconf.py
 
@@ -14,7 +14,7 @@ FTP_TARGET_DIR=/
 SSH_HOST=pec.ulyssis.org
 SSH_PORT=22
 SSH_USER=vincentnys
-SSH_TARGET_DIR=/home/user/vincentnys/www
+SSH_TARGET_DIR=/home/user/vincentnys
 
 DROPBOX_DIR=~/Dropbox/Public/
 

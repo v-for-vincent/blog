@@ -4,6 +4,8 @@ lib
 local
 output
 
+www
+
 *.pid
 *.pyc
 *.swo
