@@ -121,22 +121,23 @@ Again, Jenkins actually checks out your code and goes through the entire build
 process.
 It uses a workspace of its own to do this.
 
-.. todo:: Cobertura and violations
+.. todo::
+
+   Cobertura and violations
 
 To determine when the project gets built, check "poll SCM" and fill in:
 
-   * /5 * * * *
+   ***/5 * * * ***
 
-Note that there should not be a space after the first asterisk.
-I had to enter one because Vim's .rst syntax highlighting doesn't play
-nicely with it.
+(The text above is emphasized because the asterisks mess up my .rst syntax
+highlighting.)
 
 To run the tests, I specify these
 build steps (as "shell script"):
 
-   virtualenv my_env
-   my_env/bin/pip install -r requirements.txt
-   my_env/bin/python src/yardsale/manage.py jenkins
+   | virtualenv my_env
+   | my_env/bin/pip install -r requirements.txt
+   | my_env/bin/python src/yardsale/manage.py jenkins
 
 Just a word of explanation.
 The first command creates a virtualenv in your workspace.
@@ -160,23 +161,23 @@ the environment in there.
 
 For easy reference, here's my requirements file:
 
-   Django==1.5.1
-   argparse==1.2.1
-   coverage==3.6
-   distribute==0.6.24
-   django-dajax==0.9.2
-   django-dajaxice==0.5.5
-   django-jenkins==0.14.0
-   django-social-auth==0.7.23
-   httplib2==0.8
-   logilab-astng==0.24.3
-   logilab-common==0.59.1
-   oauth2==1.5.211
-   pep8==1.4.6
-   pylint==0.28.0
-   python-openid==2.2.5
-   selenium==2.33.0
-   wsgiref==0.1.2
+   | Django==1.5.1
+   | argparse==1.2.1
+   | coverage==3.6
+   | distribute==0.6.24
+   | django-dajax==0.9.2
+   | django-dajaxice==0.5.5
+   | django-jenkins==0.14.0
+   | django-social-auth==0.7.23
+   | httplib2==0.8
+   | logilab-astng==0.24.3
+   | logilab-common==0.59.1
+   | oauth2==1.5.211
+   | pep8==1.4.6
+   | pylint==0.28.0
+   | python-openid==2.2.5
+   | selenium==2.33.0
+   | wsgiref==0.1.2
 
 You can copy-paste that into a requirements file to quickly replicate my
 environment. Just use the "pip install -r" command shown above.
@@ -197,10 +198,28 @@ Use the same layout I described earlier.
 So that's `django-admin.py startproject yardsale` from within the "src"
 folder.
 
-.. todo:: enable django-jenkins app
+.. todo::
 
-Little Extra
-------------
+   Make sure all tasks are necessary
+
+Then, find your settings.py file, and add 'django-jenkins' to the
+INSTALLED_APPS tuple.
+
+Next, add this:
+
+   | JENKINS_TASKS = (
+   |     'django_jenkins.tasks.with_coverage',
+   |     'django_jenkins.tasks.django_tests',   # select one django or
+   |     #'django_jenkins.tasks.dir_tests'      # directory tests discovery
+   |     'django_jenkins.tasks.run_pep8',
+   |     'django_jenkins.tasks.run_pyflakes',
+   |     'django_jenkins.tasks.run_jslint',
+   |     'django_jenkins.tasks.run_csslint',    
+   |     'django_jenkins.tasks.run_sloccount',    
+   | )
+
+Little Extra for Gnome Shell users
+----------------------------------
 
 If you're using Gnome Shell, there's a nice plugin called
 `Jenkins CI Server Indicator <https://extensions.gnome.org/extension/399/jenkins-ci-server-indicator/>`_.
