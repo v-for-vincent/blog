@@ -1,12 +1,11 @@
 AJAX-powered auction in Django - Part 1: Jenkins
 ################################################
 
-:date: 2013-07-17
+:date: 2013-07-18
 :tags: Django
 :category: Python
 :slug: auction-in-django
 :author: Vincent Nys
-:status: draft
 :summary: A rundown of how to set up Jenkins for the auction.
 
 Intro
@@ -27,8 +26,13 @@ Therefore, the application uses existing social network logins to identify
 users and allows one-click bids by using AJAX.
 
 This post details how it can be done.
-It does not assume that you have worked with Django before, but it only
-explains the concepts that are used for the web app.
+For myself, it serves two purposes: to retrace my steps and solidify the
+concepts, and to do everything by the book the second time around.
+The first time, I had to get acquainted with a lot of concepts.
+Now, I want to focus on building it the right way.
+
+This tutorial does not assume that you have worked with Django before,
+but it only explains the concepts that are used for the web app.
 Some great resources on Django itself are
 `The Django Book <http://www.djangobook.com/en/2.0/index.html>`_,
 `Obey the Testing Goat! <http://www.obeythetestinggoat.com/>`_,
@@ -54,6 +58,12 @@ how to apply that to Django.
 A well-known CI tool is `Jenkins <http://jenkins-ci.org/>`_.
 I'll be using that.
 Specifically, I'll be using django-jenkins.
+This is a tremendously useful tool, but the
+`generic tutorial <https://sites.google.com/site/kmmbvnr/home/django-jenkins-tutorial>`_
+for it glosses over way too many points, like what each setting does.
+
+I'll start with a completely minimal setup and I'll configure plugins for
+more detailed output later on.
 
 Before I explain how I'd like things to be tested, a bit of explanation may be
 in order: Django distinguishes between "projects" and "apps", the former being
@@ -108,6 +118,9 @@ The main django-jenkins tutorial also uses the "Violations" and "Cobertura"
 plugins, so you should install those, as well.
 The former can check for style violations using such tools as pep8 and pylint.
 The latter checks for code coverage.
+(**Edit: You can put this off until the next iteration of this tutorial,
+because I want to keep things concise so I didn't include the plugins
+after all.**)
 
 Once that's done, I create a new free form job and I name it
 "django-jenkins-yardsale".
@@ -121,23 +134,19 @@ Again, Jenkins actually checks out your code and goes through the entire build
 process.
 It uses a workspace of its own to do this.
 
-.. todo::
+To determine when the project gets built, check "poll SCM" and fill in::
 
-   Cobertura and violations
+   */5 * * * *
 
-To determine when the project gets built, check "poll SCM" and fill in:
-
-   ***/5 * * * ***
-
-(The text above is emphasized because the asterisks mess up my .rst syntax
-highlighting.)
+This is crontab syntax, so every five minutes your Git repo will be checked
+for new commits.
 
 To run the tests, I specify these
-build steps (as "shell script"):
+build steps (as "shell script")::
 
-   | virtualenv my_env
-   | my_env/bin/pip install -r requirements.txt
-   | my_env/bin/python src/yardsale/manage.py jenkins
+   virtualenv my_env
+   my_env/bin/pip install -r requirements.txt
+   my_env/bin/python src/yardsale/manage.py jenkins
 
 Just a word of explanation.
 The first command creates a virtualenv in your workspace.
@@ -170,10 +179,12 @@ For easy reference, here's my requirements file:
    | django-jenkins==0.14.0
    | django-social-auth==0.7.23
    | httplib2==0.8
+   | jslint==0.6.0
    | logilab-astng==0.24.3
    | logilab-common==0.59.1
    | oauth2==1.5.211
    | pep8==1.4.6
+   | pyflakes==0.7.3
    | pylint==0.28.0
    | python-openid==2.2.5
    | selenium==2.33.0
@@ -193,30 +204,51 @@ Enter the following commands::
 
 Once that's out of the way, start a django project called "yardsale".
 See the "startproject" command at
-`The Django Book <http://www.djangobook.com/en/2.0/chapter02.html>`_.
+`The Django Book`_.
 Use the same layout I described earlier.
 So that's `django-admin.py startproject yardsale` from within the "src"
 folder.
 
-.. todo::
-
-   Make sure all tasks are necessary
-
-Then, find your settings.py file, and add 'django-jenkins' to the
+Then, find your settings.py file, and add 'django_jenkins' to the
 INSTALLED_APPS tuple.
 
-Next, add this:
+Next, add this::
 
-   | JENKINS_TASKS = (
-   |     'django_jenkins.tasks.with_coverage',
-   |     'django_jenkins.tasks.django_tests',   # select one django or
-   |     #'django_jenkins.tasks.dir_tests'      # directory tests discovery
-   |     'django_jenkins.tasks.run_pep8',
-   |     'django_jenkins.tasks.run_pyflakes',
-   |     'django_jenkins.tasks.run_jslint',
-   |     'django_jenkins.tasks.run_csslint',    
-   |     'django_jenkins.tasks.run_sloccount',    
-   | )
+   JENKINS_TASKS = (
+       'django_jenkins.tasks.django_tests',
+   )
+
+This enables test discovery.
+
+Now, when I ran `python manage.py jenkins` I got this vague error:
+"AttributeError: 'NoneType' object has no attribute 'result'".
+
+Okay, let's try something.
+The django-jenkins tutorial says that:
+
+   Now running python manage.py jenkins will do the same job as python manage.py tests,
+   but also will create reports folder in the root of your django project with jenkins parsable pylint,
+   test coverage and tests reports.
+
+Now that is interesting.
+Maybe I'll get some extra output from `manage.py test`.
+
+Turns out that I do.
+I need to set a database engine after all.
+The comments in the settings.py file explain how to set up sqlite3.
+
+Once I've got that, `manage.py test` works.
+I commit and, sure enough, Jenkins reports a successful run.
+
+For next time
+-------------
+
+This is turning into a long tutorial, so I'll settle for the basic setup we've
+got so far. Next time, I'll handle (some of) the following subjects:
+
+#. Adding tasks
+#. Adding reports
+#. Creating a division between functional tests and unit tests
 
 Little Extra for Gnome Shell users
 ----------------------------------
@@ -224,9 +256,3 @@ Little Extra for Gnome Shell users
 If you're using Gnome Shell, there's a nice plugin called
 `Jenkins CI Server Indicator <https://extensions.gnome.org/extension/399/jenkins-ci-server-indicator/>`_.
 I'm a sucker for these things.
-
-References
-----------
-
-#. `Continuous Integration with Jenkings by Lars Vogel <http://www.vogella.com/articles/Jenkins/article.html>`_.
-#. `django-jenkins Tutorial by kmmbvnr <https://sites.google.com/site/kmmbvnr/home/django-jenkins-tutorial>`_.
