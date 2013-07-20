@@ -43,6 +43,7 @@ For me, this led to a strange result: the build started to fail (with no
 changes to the actual code) and I got a "No valid coverage data available"
 message when trying to look at the report.
 
-I do some digging and find out that someone gets the same error message, 
-but they can "generate reports from the command line".
-So I `apt-get install cobertura` to see if I can do the same.
+And there is no "coverage.xml" report to be found anywhere, so I guess that's
+my problem. Interestingly, if I run `python manage.py jenkins`, I *do* get
+such a file.
+
