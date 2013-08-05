@@ -18,6 +18,18 @@ I left the configuration as minimal as possible. In this part of the series,
 I'll add some more bells and whistles, like code coverage, style violation
 reports, etc.
 
+Little tip for deployment
+-------------------------
+
+I switch between several machines several times a day.
+That makes running Jenkins locally something of a pain.
+What I did to fix this was hook up my Raspberry Pi
+(hey, now I've got a real use for it!) to my NAT box
+and set it up as per
+`Making Technology Easier <http://makingtechnologyeasier.blogspot.be/2013/05/jenkins-continuous-integration-server.html>`_.
+
+Easy as pie, and now I can even monitor my tests from my mobile.
+
 Code coverage
 -------------
 
