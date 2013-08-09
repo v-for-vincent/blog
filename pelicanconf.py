@@ -15,6 +15,8 @@ SITESUBTITLE=u'Thoughts on programming, music, language and life in general.'
 
 # Social widget
 SOCIAL = (('LinkedIn', 'http://be.linkedin.com/pub/vincent-nys/60/50a/582/'),
-          ('Twitter', 'http://www.twitter.com/vincent_nys'))
+          ('Twitter', 'http://www.twitter.com/vincent_nys'),
+          ('Deviantart', 'http://pseudonym-v.deviantart.com'))
 
 DEFAULT_PAGINATION = 10
+STATIC_PATHS = ['images', 'attachments']
