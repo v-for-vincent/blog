@@ -7,8 +7,8 @@ OUTPUTDIR=$(BASEDIR)/www
 CONFFILE=$(BASEDIR)/pelicanconf.py
 PUBLISHCONF=$(BASEDIR)/publishconf.py
 
-FTP_HOST=localhost
-FTP_USER=anonymous
+FTP_HOST=users.telenet.be
+FTP_USER=z604973
 FTP_TARGET_DIR=/
 
 SSH_HOST=pec.ulyssis.org
