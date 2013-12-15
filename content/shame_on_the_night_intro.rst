@@ -7,7 +7,6 @@ Shame on the Night, intro
 :slug: shame-on-the-night-intro
 :author: Vincent Nys
 :summary: Quick analysis of a Dio riff
-:status: draft
 
 What's up?
 ----------
@@ -18,7 +17,7 @@ the best things you can do to learn how to play better, regardless of your
 level of skill. I'm currently cooking something up to streamline the
 process for more difficult stuff, but in the meantime, I'll just analyze 
 some simple licks to see how that goes. Today's lick is the intro to Dio's
-`Shame on the Night <http://www.youtube.com/watch?v=zb-El0dFDzI>`.
+`Shame on the Night <http://www.youtube.com/watch?v=zb-El0dFDzI>`_.
 That is, the first 22 seconds of that YouTube video.
 
 I think the most educational way to go about this is to listen first, attempt
@@ -51,3 +50,11 @@ Stage 3: a variation
 
 The part that's different from the previous variation here is in the last
 two notes.
+
+Conclusion
+----------
+This is what I had time to write out yesterday.
+I want to do a new riff each day and I did my analysis, so here's the short
+version: variation moves from major second to root; next variation moves
+from octave to minor seventh; final variation is like the second, but it
+uses power chords instead of individual notes.
