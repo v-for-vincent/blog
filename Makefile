@@ -7,8 +7,6 @@ OUTPUTDIR=$(BASEDIR)/www
 CONFFILE=$(BASEDIR)/pelicanconf.py
 PUBLISHCONF=$(BASEDIR)/publishconf.py
 
-FTP_HOST=users.telenet.be
-FTP_USER=z604973
 FTP_TARGET_DIR=/
 
 SSH_HOST=pec.ulyssis.org
@@ -67,7 +65,7 @@ dropbox_upload: publish
 	cp -r $(OUTPUTDIR)/* $(DROPBOX_DIR)
 
 ftp_upload: publish
-	lftp ftp://$(FTP_USER)@$(FTP_HOST) -e "mirror -R $(OUTPUTDIR) $(FTP_TARGET_DIR) ; quit"
+	lftp ftp://${PERSONAL_FTP_USER}:${PERSONAL_FTP_PASSWORD}@${PERSONAL_FTP_HOST} -e "mirror -R $(OUTPUTDIR) $(FTP_TARGET_DIR) ; quit"
 
 github: publish
 	ghp-import $(OUTPUTDIR)
