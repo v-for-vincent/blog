@@ -1,5 +1,5 @@
-Soothsayer, intro
-=================
+Attrition, intro
+================
 
 :date: 2013-12-17
 :tags: Soundgarden, Kim Thayil, guitar, ear training
@@ -20,17 +20,17 @@ Analysis
 Unfortunately, I didn't have time to really dig in today.
 Here's what I did figure out:
 
-+ (by a minor 3)
-+
+up (by a minor 3)
+up
 same (a P4)
-+
+up
 
-+
--
--
+up
+down
+down
 
--
-+
--
+down
+up
+down
 
 
