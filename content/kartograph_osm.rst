@@ -6,8 +6,7 @@ Creating street maps with Kartograph
 :category: Python
 :slug: kartograph-leuven
 :author: Vincent Nys
-:summary: How I drew a nice-looking map of Leuven
-:status: draft
+:summary: How I drew an initial map of Leuven
 
 The plan
 --------
@@ -64,17 +63,6 @@ on my system, but instructions can be found
 I run version 9.
 
 If you follow those instructions, you'll initially have user named "postgres".
-That turned out to be somewhat inconvenient because you'll want to access the
-database by running Kartograph as a normal user. So I assigned myself the
-required PostgreSQL priviliges by logging in as "postgres". I followed
-instructions in the
-`PostgreSQL docs
-<http://www.postgresql.org/docs/9.1/static/app-createuser.html>`_.
-IIRC, after creating the user "vincent" (same as my system user) and running
-Kartograph, I was told that there was no database named "vincent". I'm not
-particularly familiar with PostgreSQL (and that's putting it mildly) but
-creating said DB did the trick, so you'll probably want to do the same.
-
 Then, there was the matter of getting the data I needed.
 First, I looked up Leuven on `OSM <www.openstreetmap.org>`_.
 Next, I clicked "export" and manually selected a rough approximation
@@ -86,17 +74,78 @@ system, but you should have these files).
 
 .. code:: bash
 
+   sudo su postgres
    createdb osm
    psql -d osm -f /usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql
    psql -d osm -f /usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql
 
+Always having to use the "postgres" user turned out to be somewhat inconvenient
+because I wanted to access the database by running Kartograph as a normal user.
+So I assigned myself the
+required PostgreSQL priviliges by logging in as "postgres". I followed
+instructions in the
+`PostgreSQL docs
+<http://www.postgresql.org/docs/9.1/static/app-createuser.html>`_.
+IIRC, after creating the user "vincent" (same as my system user) and running
+Kartograph, I was told that there was no database named "vincent". I'm not
+particularly familiar with PostgreSQL (and that's putting it mildly) but
+creating said DB did the trick, so you'll probably want to do the same.
+I also logged in, connected to the osm database with `\connect osm` (at
+the PostgreSQL prompt) and ran the following commands:
+
+   | GRANT CONNECT ON DATABASE osm TO vincent;
+   | GRANT USAGE ON SCHEMA public TO vincent;
+   | GRANT SELECT ON geometry_columns TO vincent;
+
+That was enough to get my setup going, but you can grant yourself
+access to other tables if you get error messages saying you need it.
+
 Then, I imported the data from OSM into my database. Note that the command
 from the tutorial found on Github gave me errors, so this one's slightly
-different:
+different. **Also note that the postgres user needs to have permission to
+read the map file for this to run.**
 
 .. code:: bash
 
    osm2pgsql -l -d osm map.osm
 
 That's assuming you haven't renamed your exported data to something other than
-map.osm, of course.
+map.osm, of course. Also, don't worry about tables which are "skipped". That
+message is confusing, because it really means that there is no existing table
+which is dropped by the script. If all goes well, your terminal output should
+end roughly like this:
+
+   | All indexes on  planet_osm_polygon created  in 1s
+   | Completed planet_osm_polygon
+   | All indexes on  planet_osm_point created  in 1s
+   | Completed planet_osm_point
+   | All indexes on  planet_osm_line created  in 1s
+   | Completed planet_osm_line
+
+Your map is now available in the database, so Kartograph can render it.
+To render, you need to supply a configuration, like this one:
+
+.. code:: javascript
+
+   {
+       "layers": {
+           "roads": {
+               "src": "postgis:dbname=osm",
+               "table": "planet_osm_polygon"
+           }
+       },
+       
+       "bounds": {
+           "mode": "polygons",
+           "data": {
+               "layer": "roads"
+           }
+       }
+   }
+
+That should get you started. Note that the layer references in "bounds"
+is defined in the "layers" dictionary. You can give this any name you
+want. If you render this, you may not get very good-looking output,
+but you've got your workflow set up and will only need to tweak
+the config file. I'll handle prettifying in another post, hopefully
+tomorrow or the day after.
