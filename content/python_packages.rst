@@ -1,6 +1,7 @@
 Python packages, imports and the working dir demystified
 ========================================================
 
+:category: Programming
 :status: draft
 
 Recently as I was working on a moderately large codebase I had to

@@ -3,7 +3,7 @@ AngularJS tutorial walkthrough (step 2)
 
 :date: 2013-12-14
 :tags: web, AngularJS, Javascript, tutorial, walkthrough
-:category: Web development
+:category: Programming
 :slug: angular-part-2-walkthrough
 :author: Vincent Nys
 :summary: Questions raised and answers proposed during the AngularJS tutorial

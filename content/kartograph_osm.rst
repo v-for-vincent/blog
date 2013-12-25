@@ -3,7 +3,7 @@ Creating street maps with Kartograph
 
 :date: 2013-12-25
 :tags: Python, Kartograph, maps, Leuven
-:category: Python
+:category: Programming
 :slug: kartograph-leuven
 :author: Vincent Nys
 :summary: How I drew an initial map of Leuven
