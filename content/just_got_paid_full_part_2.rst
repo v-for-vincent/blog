@@ -11,7 +11,7 @@ Just Got Paid, part 2
 The song
 --------
 
-The song is still at `http://www.youtube.com/watch?v=db94lyKYOcg`_.
+The song is still at `the same location <http://www.youtube.com/watch?v=db94lyKYOcg>`_.
 I originally planned to just do "the next bit", excluding the frills
 for now. That would be the start of the solo at 1:28-ish.
 This is a slide-based solo, which is a nice challenge, because I've
