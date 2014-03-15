@@ -1,7 +1,7 @@
 Djallenge, part 1
 =================
 
-:date: 2014-03-12
+:date: 2014-03-11
 :tags: web, Django, Python
 :category: Programming
 :slug: djallenge-1
