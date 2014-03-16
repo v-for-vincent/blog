@@ -38,8 +38,8 @@ Because we're leveraging a class-based view, we can't implement those steps dire
 But luckily, and also because we're using a class-based view, this kind of filtering is pretty common.
 We can edit the view easily by implementing a non-default `get_queryset` method::
 
-def get_queryset(self):
-    return Lick.objects.filter(user=self.request.user)
+    def get_queryset(self):
+        return Lick.objects.filter(user=self.request.user)
 
 Afterthought
 ------------
