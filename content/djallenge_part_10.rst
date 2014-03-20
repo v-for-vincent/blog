@@ -37,3 +37,12 @@ every day.
 
 I think it won't be long until I write a sequel series of blog posts.
 There are some things I'd like to improve, though.
+
+For one thing, I pretty much pretended anyone reading would know the
+rest of the project. When I do another Django series, it may be for
+the same project, but it'll be a separate app.
+Another is that I could probably provide more context and samples.
+Maybe I'll alternate between coding and blogging each day to remedy that.
+Finally, I've focused on adding a (tiny) feature every day.
+Proper testing is valuable and hard to get down, though, so I'd like to
+pay more attention to that.
