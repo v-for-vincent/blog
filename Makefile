@@ -78,11 +78,12 @@ EXT ?= rst
 
 newpost:
 ifdef NAME
-	echo "Title: $(NAME)" >  $(INPUTDIR)/$(SLUG).$(EXT)
-	echo "Slug: $(SLUG)" >> $(INPUTDIR)/$(SLUG).$(EXT)
-	echo "Date: $(DATE)" >> $(INPUTDIR)/$(SLUG).$(EXT)
-	echo ""              >> $(INPUTDIR)/$(SLUG).$(EXT)
-	echo ""              >> $(INPUTDIR)/$(SLUG).$(EXT)
+	echo ":slug: $(SLUG)" >> $(INPUTDIR)/$(SLUG).$(EXT)
+	echo ":date: $(DATE)" >> $(INPUTDIR)/$(SLUG).$(EXT)
+	echo ":category:" >> $(INPUTDIR)/$(SLUG).$(EXT)
+	echo ":summary:" >> $(INPUTDIR)/$(SLUG).$(EXT)
+	echo ":tags:" >> $(INPUTDIR)/$(SLUG).$(EXT)
+	echo ":status: draft" >> $(INPUTDIR)/$(SLUG).$(EXT)
 	${EDITOR} ${INPUTDIR}/${SLUG}.${EXT} &
 else
 	@echo 'Variable NAME is not defined.'
@@ -99,8 +100,7 @@ endif
 
 newpage:
 ifdef NAME
-	echo "Title: $(NAME)" >  $(PAGESDIR)/$(SLUG).$(EXT)
-	echo "Slug: $(SLUG)" >> $(PAGESDIR)/$(SLUG).$(EXT)
+	echo ":slug: $(SLUG)" >> $(PAGESDIR)/$(SLUG).$(EXT)
 	echo ""              >> $(PAGESDIR)/$(SLUG).$(EXT)
 	echo ""              >> $(PAGESDIR)/$(SLUG).$(EXT)
 	${EDITOR} ${PAGESDIR}/${SLUG}.$(EXT)

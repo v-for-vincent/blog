@@ -12,7 +12,4 @@ DELETE_OUTPUT_DIRECTORY = True
 # Following items are often useful when publishing
 
 # Uncomment following line for absolute URLs in production:
-#RELATIVE_URLS = False
-
-DISQUS_SITENAME = "vforvincent"
-#GOOGLE_ANALYTICS = ""
+# RELATIVE_URLS = False

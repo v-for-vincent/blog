@@ -8,14 +8,15 @@ DEFAULT_LANG = u'en'
 #FEED_DOMAIN = SITEURL
 FEED_MAX_ITEMS = 10
 PATH=u'content'
-SITESUBTITLE=u'Thoughts on programming, music, language and life in general.'
-
-# Blogroll
-# LINKS =  (('Pelican', 'http://docs.notmyidea.org/alexis/pelican/'),)
+SITESUBTITLE=u'Music, programming and stuff.'
 
 # Social widget
 SOCIAL = (('LinkedIn', 'http://be.linkedin.com/pub/vincent-nys/60/50a/582/'),
           ('Twitter', 'http://www.twitter.com/vincent_nys'))
+
+# Comments
+DISQUS_SITENAME = "vforvincent"
+DISQUS_DISPLAY_COUNTS = False
 
 DEFAULT_PAGINATION = 10
 STATIC_PATHS = ['images', 'attachments']
