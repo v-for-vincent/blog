@@ -64,18 +64,18 @@ The algorithm is simple, but a few rules should be established beforehand.
 #. Assume that an implicit identity function can always be applied.
    So the rule explaining `ai = f(c)` also covers the case `ai = c`.
 
-With these rules in mind, we can find a substitution as follows:
+With these rules in mind and starting from an empty substitution,
+we construct the final substitution as follows:
 
 #. `g = f(c1,c2,a1,a2,g,g)` (where `c`'s are constants and there is no bound
    on indices): switch the two sides of the unification.
 #. `f(c1,c2,a1,a2,g,g) = g`: add `a1 = g`, `a2 = g`,... to the resulting
    substitution
 #. `ai = f(c1,c2,ai,aj,g,g)` (unless `f` is the identity function): fail.
-   This corresponds to the "occurs check": `ai` is unified with a term
-   containing `ai`.
+   This corresponds to the "occurs check".
 #. `ai = f(c1,c2,a1,a2,g,g)`: substitute `ai` for a literal occurrence
    of the term (including `a1`,...).
-#. `f(c1,c2,a1,a2,g,g)` = `f(c3,c4,a3,a4,g,g)` (notation could be a bit
+#. `f(c1,c2,a1,a2,g,g)` = `f(c3,c4,a3,a4,g,g)` (my notation could be a bit
    misleading here: the arity is the same, but matching arguments do not
    need to have the same "status", e.g. we can unify `ai` with `g`):
    move on to do a pairwise unification between each argument.
